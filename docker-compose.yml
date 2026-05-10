@@ -3,7 +3,7 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     ports:
-      - "3017:11434"
+      - "8111:11434"
     volumes:
       - ./ollama_data:/root/.ollama
     restart: unless-stopped
