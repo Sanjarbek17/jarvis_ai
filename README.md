@@ -33,10 +33,10 @@ docker compose up -d
 ```
 
 ### 2. Pull a Model
-Ollama starts empty. You must manually pull the model you want to use. We recommend `qwen2.5:0.5b` for the Jarvis app:
+Ollama starts empty. You must manually pull the model you want to use. We recommend `qwen3:0.5b` for the Jarvis app:
 
 ```bash
-docker compose exec ollama ollama pull qwen2.5:0.5b
+docker compose exec ollama ollama pull qwen3:0.5b
 ```
 
 ### 3. Verify the Installation
@@ -97,7 +97,7 @@ You can test the backend directly from your terminal using `curl`.
 ### Generate a Response
 ```bash
 curl http://localhost:3017/api/generate -d '{
-  "model": "qwen2.5:0.5b",
+  "model": "qwen3:0.5b",
   "prompt": "Why is the sky blue?",
   "stream": false
 }'
@@ -106,7 +106,7 @@ curl http://localhost:3017/api/generate -d '{
 ### Chat Completion
 ```bash
 curl http://localhost:3017/api/chat -d '{
-  "model": "qwen2.5:0.5b",
+  "model": "qwen3:0.5b",
   "messages": [
     { "role": "user", "content": "Hello, Jarvis!" }
   ],
@@ -130,7 +130,7 @@ curl http://localhost:3017/api/chat -d '{
 > For significantly faster performance (using Apple Silicon GPU/Metal), we recommend:
 > 1. Stopping the Docker containers: `docker compose down`
 > 2. Downloading the [Native Ollama App](https://ollama.com/download/mac).
-> 3. Running `ollama run qwen2.5:0.5b` directly from your terminal.
+> 3. Running `ollama run qwen3:0.5b` directly from your terminal.
 
 ---
 
@@ -140,5 +140,5 @@ curl http://localhost:3017/api/chat -d '{
 | :--- | :--- |
 | **Connection Refused** | Ensure Docker is running and the `ollama` container is active. |
 | **Phone can't connect** | Check your Mac's Firewall settings (System Settings > Network > Firewall) and ensure port 3017 is open. |
-| **Model not found** | Run `docker compose exec ollama ollama pull qwen2.5:0.5b` manually. |
-| **High Resource Usage** | The `qwen2.5:0.5b` model is very lightweight, but ensure no other heavy LLMs are running. |
+| **Model not found** | Run `docker compose exec ollama ollama pull qwen3:0.5b` manually. |
+| **High Resource Usage** | The `qwen3:0.5b` model is very lightweight, but ensure no other heavy LLMs are running. |
