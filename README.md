@@ -8,6 +8,7 @@ This repository contains the Docker configuration for the Jarvis AI backend. It 
 - [Prerequisites](#-prerequisites)
 - [Getting Started](#-getting-started)
 - [Managing Models](#-managing-models)
+- [Speech-to-Text (Whisper)](#-speech-to-text-whisper)
 - [Connecting Your Phone](#-connecting-your-phone)
 - [API Documentation (Testing)](#-api-documentation-testing)
 - [Service Details](#-service-details)
@@ -26,7 +27,7 @@ This repository contains the Docker configuration for the Jarvis AI backend. It 
 ## 🚀 Getting Started
 
 ### 1. Start the Backend
-Run the following command to start the Ollama engine:
+Run the following command to start both Ollama (LLM) and Whisper (STT) services:
 
 ```bash
 docker compose up -d
@@ -69,6 +70,27 @@ docker compose exec ollama ollama list
 ### Delete a Model
 ```bash
 docker compose exec ollama ollama rm <model-name>
+```
+
+---
+
+## 🎙 Speech-to-Text (Whisper)
+
+We use **Faster-Whisper** to provide a local, OpenAI-compatible API for speech recognition.
+
+### Service Endpoint
+The Whisper service runs on port `8000`:
+`http://localhost:8000/v1/audio/transcriptions`
+
+### How it works
+On the first transcription request, the container will automatically download the `base` model (approx. 150MB). You can change the model by adding an environment variable to `docker-compose.yml`.
+
+### Testing Whisper
+```bash
+curl http://localhost:8000/v1/audio/transcriptions \
+  -H "Content-Type: multipart/form-data" \
+  -F file="@/path/to/your/audio.wav" \
+  -F model="base"
 ```
 
 ---
@@ -118,8 +140,9 @@ curl http://localhost:3017/api/chat -d '{
 
 ## ⚙️ Service Details
 
-- **Ollama**: The core inference engine running on port `3017`.
-- **Data Persistence**: Models and configurations are stored in the `./ollama_data` directory, so they persist across restarts.
+- **Ollama**: The core inference engine running on port `8111`.
+- **Whisper**: Local speech-to-text API running on port `8000`.
+- **Data Persistence**: Models and configurations are stored in `./ollama_data` and `./whisper_models`.
 
 ---
 
