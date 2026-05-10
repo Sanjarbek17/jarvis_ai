@@ -29,25 +29,25 @@ This repository contains the Docker configuration for the Jarvis AI backend. It 
 Run the following command to start the Ollama engine:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 2. Pull a Model
 Ollama starts empty. You must manually pull the model you want to use. We recommend `qwen2.5:0.5b` for the Jarvis app:
 
 ```bash
-docker-compose exec ollama ollama pull qwen2.5:0.5b
+docker compose exec ollama ollama pull qwen2.5:0.5b
 ```
 
 ### 3. Verify the Installation
 Check if the container is running:
 ```bash
-docker-compose ps
+docker compose ps
 ```
 
 Verify that your model is ready:
 ```bash
-docker-compose exec ollama ollama list
+docker compose exec ollama ollama list
 ```
 
 ---
@@ -58,17 +58,17 @@ Ollama allows you to run many different LLMs. You can browse available models at
 
 ### Download a Model
 ```bash
-docker-compose exec ollama ollama pull <model-name>
+docker compose exec ollama ollama pull <model-name>
 ```
 
 ### List Your Models
 ```bash
-docker-compose exec ollama ollama list
+docker compose exec ollama ollama list
 ```
 
 ### Delete a Model
 ```bash
-docker-compose exec ollama ollama rm <model-name>
+docker compose exec ollama ollama rm <model-name>
 ```
 
 ---
@@ -128,7 +128,7 @@ curl http://localhost:3017/api/chat -d '{
 > [!TIP]
 > **GPU Acceleration**: Docker on macOS currently runs Ollama via CPU-only inference, which can be slow. 
 > For significantly faster performance (using Apple Silicon GPU/Metal), we recommend:
-> 1. Stopping the Docker containers: `docker-compose down`
+> 1. Stopping the Docker containers: `docker compose down`
 > 2. Downloading the [Native Ollama App](https://ollama.com/download/mac).
 > 3. Running `ollama run qwen2.5:0.5b` directly from your terminal.
 
@@ -140,5 +140,5 @@ curl http://localhost:3017/api/chat -d '{
 | :--- | :--- |
 | **Connection Refused** | Ensure Docker is running and the `ollama` container is active. |
 | **Phone can't connect** | Check your Mac's Firewall settings (System Settings > Network > Firewall) and ensure port 3017 is open. |
-| **Model not found** | Run `docker-compose exec ollama ollama pull qwen2.5:0.5b` manually. |
+| **Model not found** | Run `docker compose exec ollama ollama pull qwen2.5:0.5b` manually. |
 | **High Resource Usage** | The `qwen2.5:0.5b` model is very lightweight, but ensure no other heavy LLMs are running. |
