@@ -36,18 +36,18 @@ docker-compose up -d
 Ollama starts empty. You must manually pull the model you want to use. We recommend `qwen2.5:0.5b` for the Jarvis app:
 
 ```bash
-docker exec -it ollama ollama pull qwen2.5:0.5b
+docker-compose exec ollama ollama pull qwen2.5:0.5b
 ```
 
 ### 3. Verify the Installation
 Check if the container is running:
 ```bash
-docker ps
+docker-compose ps
 ```
 
 Verify that your model is ready:
 ```bash
-docker exec -it ollama ollama list
+docker-compose exec ollama ollama list
 ```
 
 ---
@@ -58,17 +58,17 @@ Ollama allows you to run many different LLMs. You can browse available models at
 
 ### Download a Model
 ```bash
-docker exec -it ollama ollama pull <model-name>
+docker-compose exec ollama ollama pull <model-name>
 ```
 
 ### List Your Models
 ```bash
-docker exec -it ollama ollama list
+docker-compose exec ollama ollama list
 ```
 
 ### Delete a Model
 ```bash
-docker exec -it ollama ollama rm <model-name>
+docker-compose exec ollama ollama rm <model-name>
 ```
 
 ---
@@ -86,7 +86,7 @@ To allow your mobile device to communicate with this backend:
    - Open the `controller_phone` app.
    - Navigate to **Settings**.
    - Update the **Server IP** to match your Mac's IP (e.g., `192.168.1.XX`).
-   - Ensure the port is set to `11434`.
+   - Ensure the port is set to `3017`.
 
 ---
 
@@ -96,7 +96,7 @@ You can test the backend directly from your terminal using `curl`.
 
 ### Generate a Response
 ```bash
-curl http://localhost:11434/api/generate -d '{
+curl http://localhost:3017/api/generate -d '{
   "model": "qwen2.5:0.5b",
   "prompt": "Why is the sky blue?",
   "stream": false
@@ -105,7 +105,7 @@ curl http://localhost:11434/api/generate -d '{
 
 ### Chat Completion
 ```bash
-curl http://localhost:11434/api/chat -d '{
+curl http://localhost:3017/api/chat -d '{
   "model": "qwen2.5:0.5b",
   "messages": [
     { "role": "user", "content": "Hello, Jarvis!" }
@@ -118,7 +118,7 @@ curl http://localhost:11434/api/chat -d '{
 
 ## ⚙️ Service Details
 
-- **Ollama**: The core inference engine running on port `11434`.
+- **Ollama**: The core inference engine running on port `3017`.
 - **Data Persistence**: Models and configurations are stored in the `./ollama_data` directory, so they persist across restarts.
 
 ---
@@ -139,6 +139,6 @@ curl http://localhost:11434/api/chat -d '{
 | Issue | Solution |
 | :--- | :--- |
 | **Connection Refused** | Ensure Docker is running and the `ollama` container is active. |
-| **Phone can't connect** | Check your Mac's Firewall settings (System Settings > Network > Firewall) and ensure port 11434 is open. |
-| **Model not found** | Run `docker exec -it ollama ollama pull qwen2.5:0.5b` manually. |
+| **Phone can't connect** | Check your Mac's Firewall settings (System Settings > Network > Firewall) and ensure port 3017 is open. |
+| **Model not found** | Run `docker-compose exec ollama ollama pull qwen2.5:0.5b` manually. |
 | **High Resource Usage** | The `qwen2.5:0.5b` model is very lightweight, but ensure no other heavy LLMs are running. |
